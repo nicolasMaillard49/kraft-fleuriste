@@ -16,6 +16,7 @@ html {
 body {
   background-color: var(--offwhite);
   color: #2C2C2C;
+  overflow-x: hidden;
 }
 
 @layer utilities {
@@ -24,7 +25,10 @@ body {
   }
 }
 
-/* Custom scrollbar */
+/* ========================================
+   CUSTOM SCROLLBAR
+   ======================================== */
+
 ::-webkit-scrollbar {
   width: 6px;
 }
@@ -40,4 +44,243 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #5C7A5E;
+}
+
+/* ========================================
+   ORGANIC GRAIN TEXTURE OVERLAY
+   ======================================== */
+
+.grain-overlay::before {
+  content: '';
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 100;
+  opacity: 0.4;
+  will-change: transform;
+  animation: grain 8s steps(10) infinite;
+}
+
+@keyframes grain {
+  0%, 100% { transform: translate(0, 0); }
+  10% { transform: translate(-5%, -10%); }
+  20% { transform: translate(-15%, 5%); }
+  30% { transform: translate(7%, -25%); }
+  40% { transform: translate(-5%, 25%); }
+  50% { transform: translate(-15%, 10%); }
+  60% { transform: translate(15%, 0%); }
+  70% { transform: translate(0%, 15%); }
+  80% { transform: translate(3%, 35%); }
+  90% { transform: translate(-10%, 10%); }
+}
+
+/* ========================================
+   FLOATING / BREATHING ANIMATIONS
+   ======================================== */
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33% { transform: translateY(-8px) rotate(1deg); }
+  66% { transform: translateY(4px) rotate(-1deg); }
+}
+
+@keyframes breathe {
+  0%, 100% { transform: scale(1); opacity: 0.1; }
+  50% { transform: scale(1.05); opacity: 0.15; }
+}
+
+@keyframes float-rotate {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-6px) rotate(2deg); }
+  50% { transform: translateY(-12px) rotate(0deg); }
+  75% { transform: translateY(-6px) rotate(-2deg); }
+}
+
+/* ========================================
+   HERO ANIMATIONS
+   ======================================== */
+
+@keyframes hero-title-reveal {
+  0% {
+    clip-path: inset(0 100% 0 0);
+    opacity: 0;
+  }
+  100% {
+    clip-path: inset(0 0% 0 0);
+    opacity: 1;
+  }
+}
+
+@keyframes hero-line-draw {
+  0% { transform: scaleX(0); }
+  100% { transform: scaleX(1); }
+}
+
+@keyframes hero-fade-up {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes hero-fade-in {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes scroll-indicator {
+  0%, 100% { transform: translateX(-50%) translateY(0); opacity: 1; }
+  50% { transform: translateX(-50%) translateY(10px); opacity: 0.4; }
+}
+
+@keyframes dot-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.5); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+/* ========================================
+   NAVBAR ANIMATIONS
+   ======================================== */
+
+@keyframes nav-slide-down {
+  0% { transform: translateY(-100%); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+/* ========================================
+   SVG PATH DRAW ANIMATION
+   ======================================== */
+
+@keyframes draw-path {
+  0% { stroke-dashoffset: var(--path-length, 1000); }
+  100% { stroke-dashoffset: 0; }
+}
+
+.draw-path {
+  stroke-dasharray: var(--path-length, 1000);
+  stroke-dashoffset: var(--path-length, 1000);
+  animation: draw-path 2s ease-out forwards;
+}
+
+/* ========================================
+   CARD HOVER EFFECTS
+   ======================================== */
+
+@keyframes card-shine {
+  0% { transform: translateX(-100%) rotate(25deg); }
+  100% { transform: translateX(100%) rotate(25deg); }
+}
+
+.card-shine-hover::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.08) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: translateX(-100%) rotate(25deg);
+  pointer-events: none;
+  transition: none;
+}
+
+.card-shine-hover:hover::after {
+  animation: card-shine 0.7s ease-out;
+}
+
+/* ========================================
+   ANIMATED UNDERLINE FOR NAV LINKS
+   ======================================== */
+
+.nav-link {
+  position: relative;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: #7C9A7E;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav-link:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* ========================================
+   FOOTER PULSE DOT
+   ======================================== */
+
+.pulse-dot {
+  position: relative;
+}
+
+.pulse-dot::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  background: #7C9A7E;
+  animation: dot-pulse 2s ease-in-out infinite;
+  z-index: -1;
+}
+
+/* ========================================
+   MARQUEE
+   ======================================== */
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.marquee-track {
+  animation: marquee 30s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* ========================================
+   REDUCED MOTION
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .grain-overlay::before {
+    display: none;
+  }
 }

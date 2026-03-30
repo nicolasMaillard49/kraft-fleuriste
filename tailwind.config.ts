@@ -32,6 +32,19 @@ const config: Config = {
       animation: {
         "fade-up": "fadeUp 0.8s ease-out forwards",
         "fade-in": "fadeIn 1s ease-out forwards",
+        "float": "float 6s ease-in-out infinite",
+        "float-slow": "float-slow 8s ease-in-out infinite",
+        "float-rotate": "float-rotate 10s ease-in-out infinite",
+        "breathe": "breathe 6s ease-in-out infinite",
+        "hero-title": "hero-title-reveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards",
+        "hero-line": "hero-line-draw 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards",
+        "hero-fade-up": "hero-fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards",
+        "hero-fade-in": "hero-fade-in 1s ease-out forwards",
+        "scroll-indicator": "scroll-indicator 2s ease-in-out infinite",
+        "shimmer": "shimmer 2.5s linear infinite",
+        "nav-slide": "nav-slide-down 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards",
+        "marquee": "marquee 30s linear infinite",
+        "dot-pulse": "dot-pulse 2s ease-in-out infinite",
       },
       keyframes: {
         fadeUp: {
@@ -42,6 +55,12 @@ const config: Config = {
           "0%": { opacity: "0" },
           "100%": { opacity: "1" },
         },
+      },
+      transitionTimingFunction: {
+        "out-expo": "cubic-bezier(0.16, 1, 0.3, 1)",
+      },
+      backdropBlur: {
+        xs: "2px",
       },
     },
   },
